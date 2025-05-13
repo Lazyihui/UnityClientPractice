@@ -34,6 +34,9 @@ namespace Game_Client {
             assetsModule = GetComponentInChildren<AssetsModule>();
             assetsModule.Ctor();
 
+
+            // === Inject ===
+            gameContext.Inject(assetsModule);
             Action action = async () => {
 
                 await assetsModule.LoadAll();

@@ -20,6 +20,7 @@ namespace Game_Client {
         public void Enter() {
             ctx.isRunning = true;
 
+            RoleDomain.Spawn(ctx);
             Debug.Log("GameSystem Enter");
         }
 

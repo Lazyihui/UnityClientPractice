@@ -6,9 +6,15 @@ namespace Game_Client {
 
     public static class GameFactory {
 
-        public static RoleEntity Role_Create() {
+        public static RoleEntity Role_Create(AssetsModule assetsModule) {
+            Debug.Assert(assetsModule != null, "assetsModule is null");
+            GameObject prefab = assetsModule.Entity_GetRole();
+            GameObject go = GameObject.Instantiate(prefab);
+            RoleEntity entity = go.GetComponent<RoleEntity>();
 
-            return null;
+            entity.Ctor();
+
+            return entity;
         }
     }
 }

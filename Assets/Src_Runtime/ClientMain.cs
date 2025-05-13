@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Telepathy;
+using UnityEditor.IMGUI.Controls;
 
 
 namespace Game_Client {
@@ -14,15 +16,37 @@ namespace Game_Client {
         string ip = "127.0.0.1"; // 服务器IP地址
 
         bool isTearDown = false;
+        bool isInit = false;
 
         // === System ===
-        public static GameSystemContext gameContext;
+        public static GameSystem gameContext;
 
         // === Module ===
 
         public static AssetsModule assetsModule;
 
         void Start() {
+            // === System ===
+            gameContext = GetComponentInChildren<GameSystem>();
+            gameContext.Ctor();
+
+            // === Module ===
+            assetsModule = GetComponentInChildren<AssetsModule>();
+            assetsModule.Ctor();
+
+            Action action = async () => {
+
+                await assetsModule.LoadAll();
+
+                isInit = true;
+
+                // ---  Enter  ---
+                gameContext.Enter();
+
+            };
+            action.Invoke();
+
+            // 
             Application.runInBackground = true; // 允许后台运行
 
             client = new Client(messageSize);
@@ -50,10 +74,17 @@ namespace Game_Client {
         }
 
         void Update() {
+            if(!isInit) {
+                return;
+            }
+
+            float dt = Time.deltaTime;
+
             if (client != null) {
                 client.Tick(10); // 每帧处理一次
             }
 
+            gameContext.Tick(dt);
         }
 
         void OnDestory() {
@@ -69,6 +100,8 @@ namespace Game_Client {
                 return;
             }
             isTearDown = true;
+            assetsModule.UnLoadAll();
+
 
             if (client != null) {
                 client.Disconnect();

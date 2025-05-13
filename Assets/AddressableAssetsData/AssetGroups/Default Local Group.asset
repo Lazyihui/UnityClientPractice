@@ -24,6 +24,11 @@ MonoBehaviour:
     - Entity
     - Panel
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e11293ca15d40241aba414e3547a275
+    m_Address: Assets/Src_Runtime/Modue_Input/InputController_Player.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c749d167c04a504b806bd0ab72810b0, type: 2}
   m_SchemaSet:

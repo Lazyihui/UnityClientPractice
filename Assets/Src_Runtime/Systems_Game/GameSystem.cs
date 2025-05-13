@@ -13,8 +13,8 @@ namespace Game_Client {
             ctx = new GameSystemContext();
         }
 
-        public void Inject(AssetsModule assetsModule) {
-            ctx.Inject(assetsModule);
+        public void Inject(AssetsModule assetsModule, InputModule inputModule) {
+            ctx.Inject(assetsModule, inputModule);
         }
 
         public void Enter() {
@@ -51,10 +51,15 @@ namespace Game_Client {
         }
 
         public void PreTick(float dt) {
-            // PreTick
+            // PreTick 
+            RoleEntity owner = ctx.GetOwner();
+            RoleDomain.Input_Record(ctx, owner);
         }
         public void LogicTick(float dt) {
             // LogicTick
+
+            RoleEntity owner = ctx.GetOwner();
+            RoleDomain.Move(owner);
         }
 
         public void LastTick(float dt) {

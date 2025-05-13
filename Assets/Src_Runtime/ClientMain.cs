@@ -24,6 +24,7 @@ namespace Game_Client {
         // === Module ===
 
         public static AssetsModule assetsModule;
+        public static InputModule inputModule;
 
         void Start() {
             // === System ===
@@ -34,18 +35,19 @@ namespace Game_Client {
             assetsModule = GetComponentInChildren<AssetsModule>();
             assetsModule.Ctor();
 
+            inputModule = GetComponentInChildren<InputModule>();
+            inputModule.Ctor();
+
 
             // === Inject ===
-            gameContext.Inject(assetsModule);
+            gameContext.Inject(assetsModule, inputModule);
             Action action = async () => {
-
                 await assetsModule.LoadAll();
 
                 isInit = true;
 
                 // ---  Enter  ---
                 gameContext.Enter();
-
             };
             action.Invoke();
 
@@ -77,7 +79,7 @@ namespace Game_Client {
         }
 
         void Update() {
-            if(!isInit) {
+            if (!isInit) {
                 return;
             }
 
@@ -86,6 +88,8 @@ namespace Game_Client {
             if (client != null) {
                 client.Tick(10); // 每帧处理一次
             }
+            inputModule.Process(dt);
+
 
             gameContext.Tick(dt);
         }

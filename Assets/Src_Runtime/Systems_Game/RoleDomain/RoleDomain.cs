@@ -17,6 +17,16 @@ namespace Game_Client {
             return role;
         }
 
+        public static void Input_Record(GameSystemContext ctx, RoleEntity role) {
+            // (后面加入) InputComponent
+            role.moveDir = ctx.inputModule.MoveDir;
+
+        }
+
+        public static void Move(RoleEntity role) {
+            // 角色移动
+            role.Move(role.moveDir);
+        }
     }
 }
 

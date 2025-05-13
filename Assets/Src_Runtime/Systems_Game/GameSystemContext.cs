@@ -9,6 +9,7 @@ namespace Game_Client {
 
         // Inject
         public AssetsModule assetsModule;
+        public InputModule inputModule;
 
         // Repos
         public RoleRepository RoleRepository;
@@ -20,8 +21,14 @@ namespace Game_Client {
             RoleRepository = new RoleRepository();
         }
 
-        public void Inject(AssetsModule assetsModule) {
+        public void Inject(AssetsModule assetsModule, InputModule inputModule) {
             this.assetsModule = assetsModule;
+            this.inputModule = inputModule;
+        }
+
+        public RoleEntity GetOwner() {
+            RoleRepository.TryGet(gameEntity.OwnerIDsig, out RoleEntity role);
+            return role;
         }
     }
 }

@@ -5,15 +5,16 @@ using UnityEngine;
 
 namespace Game_Client {
     public class RoleEntity : MonoBehaviour {
+        // 要发送的消息
+        public IDSignature idSig;
+        public Vector2 moveDir;
+
 
         [SerializeField] Rigidbody2D rb;
-
-        public IDSignature idSig;
         public int id;
         public int typeID;
 
         public float movespeed;
-        public Vector2 moveDir;
 
         public void Ctor() {
             movespeed = 5f;

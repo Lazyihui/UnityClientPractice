@@ -4,12 +4,14 @@ using Protocoles;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using Telepathy;
+using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Game_Client {
 
     public class GameSystem : MonoBehaviour {
 
         GameSystemContext ctx;
+        public GameSystemContext Ctx => ctx;
 
         public void Ctor() {
             ctx = new GameSystemContext();

@@ -17,6 +17,15 @@ namespace Game_Client {
             return role;
         }
 
+        public static RoleEntity OnSpanwByBro(GameSystemContext ctx, SpawnRoleBroMessage msg) {
+            RoleEntity role = GameFactory.Role_Create(ctx.assetsModule);
+            role.Ctor();
+            role.idSig = msg.idSig;
+            role.transform.position = msg.pos;
+
+            return role;
+        }
+
         public static void Input_Record(GameSystemContext ctx, RoleEntity role) {
             // (后面加入) InputComponent
             role.moveDir = ctx.inputModule.MoveDir;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Telepathy;
 using UnityEditor.IMGUI.Controls;
+using Protocoles;
 
 
 namespace Game_Client {
@@ -19,7 +20,7 @@ namespace Game_Client {
         bool isInit = false;
 
         // === System ===
-        public static GameSystem gameContext;
+        public static GameSystem gameSys;
 
         // === Module ===
 
@@ -28,8 +29,8 @@ namespace Game_Client {
 
         void Start() {
             // === System ===
-            gameContext = GetComponentInChildren<GameSystem>();
-            gameContext.Ctor();
+            gameSys = GetComponentInChildren<GameSystem>();
+            gameSys.Ctor();
 
             // === Module ===
             assetsModule = GetComponentInChildren<AssetsModule>();
@@ -47,7 +48,7 @@ namespace Game_Client {
                 isInit = true;
 
                 // ---  Enter  ---
-                gameContext.Enter();
+                gameSys.Enter();
             };
             action.Invoke();
 
@@ -56,15 +57,32 @@ namespace Game_Client {
             client = new Client(messageSize);
             client.Connect(ip, port);
             // === Inject ===
-            gameContext.Inject(assetsModule, inputModule, client);
+            gameSys.Inject(assetsModule, inputModule, client);
             Application.runInBackground = true; // 允许后台运行
 
             client.OnConnected += () => {
                 Debug.Log("成功链接");
+                // 1. 发送连接请求
+                
             };
             client.OnData += (message) => {
                 // 处理接收到的数据
                 Debug.Log("收到的信息: " + message);
+
+                int typeID = MessageHelper.ReadHeader(message.Array);
+                Debug.Log("消息类型ID: " + typeID);
+
+                if (typeID == MessageConst.SpawnRole_Bro) {
+
+                    SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
+                    RoleDomain.OnSpanwByBro(gameSys.Ctx, bro);
+
+                } else if (typeID == 1) {
+
+                } else {
+                    Debug.LogError("未知的消息类型: " + typeID);
+                }
+
             };
 
             client.OnDisconnected += () => {
@@ -91,7 +109,7 @@ namespace Game_Client {
             }
             inputModule.Process(dt);
 
-            gameContext.Tick(dt);
+            gameSys.Tick(dt);
         }
 
         void OnDestory() {

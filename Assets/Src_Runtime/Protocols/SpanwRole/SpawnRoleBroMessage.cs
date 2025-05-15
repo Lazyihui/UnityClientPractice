@@ -9,7 +9,7 @@ namespace Game_Client {
 
         public IDSignature idSig;
 
-        public Vector2 position;
+        public Vector2 pos;
 
         
     }

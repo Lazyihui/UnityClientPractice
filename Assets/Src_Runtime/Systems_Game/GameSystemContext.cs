@@ -1,4 +1,5 @@
 using System;
+using Telepathy;
 
 
 namespace Game_Client {
@@ -7,9 +8,12 @@ namespace Game_Client {
         public bool isRunning;
         public GameEntity gameEntity;
 
+
         // Inject
         public AssetsModule assetsModule;
         public InputModule inputModule;
+
+        public Client client;
 
         // Repos
         public RoleRepository RoleRepository;
@@ -21,9 +25,10 @@ namespace Game_Client {
             RoleRepository = new RoleRepository();
         }
 
-        public void Inject(AssetsModule assetsModule, InputModule inputModule) {
+        public void Inject(AssetsModule assetsModule, InputModule inputModule,Client client) {
             this.assetsModule = assetsModule;
             this.inputModule = inputModule;
+            this.client = client;
         }
 
         public RoleEntity GetOwner() {

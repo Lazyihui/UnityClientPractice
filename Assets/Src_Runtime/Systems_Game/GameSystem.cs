@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Protocoles;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using Telepathy;
 
 namespace Game_Client {
 
@@ -13,8 +15,8 @@ namespace Game_Client {
             ctx = new GameSystemContext();
         }
 
-        public void Inject(AssetsModule assetsModule, InputModule inputModule) {
-            ctx.Inject(assetsModule, inputModule);
+        public void Inject(AssetsModule assetsModule, InputModule inputModule, Client client) {
+            ctx.Inject(assetsModule, inputModule, client);
         }
 
         public void Enter() {
@@ -56,10 +58,27 @@ namespace Game_Client {
             RoleDomain.Input_Record(ctx, owner);
         }
         public void LogicTick(float dt) {
+            var client = ctx.client;
+
             // LogicTick
 
             RoleEntity owner = ctx.GetOwner();
             RoleDomain.Move(owner);
+
+
+            // 
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                // 发送一条信息
+                SpawnRoleReqMessage req = new SpawnRoleReqMessage();
+                req.idSig = owner.idSig;
+                req.pos = owner.transform.position;
+
+                Debug.Log(req.pos);
+
+                byte[] data = MessageHelper.ToData(req);
+                Debug.Assert(client != null, "Client is null");
+                client.Send(data);
+            }
         }
 
         public void LastTick(float dt) {

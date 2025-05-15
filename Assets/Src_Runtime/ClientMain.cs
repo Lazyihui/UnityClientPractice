@@ -39,8 +39,8 @@ namespace Game_Client {
             inputModule.Ctor();
 
 
-            // === Inject ===
-            gameContext.Inject(assetsModule, inputModule);
+
+
             Action action = async () => {
                 await assetsModule.LoadAll();
 
@@ -52,11 +52,12 @@ namespace Game_Client {
             action.Invoke();
 
             // 
-            Application.runInBackground = true; // 允许后台运行
 
             client = new Client(messageSize);
             client.Connect(ip, port);
-
+            // === Inject ===
+            gameContext.Inject(assetsModule, inputModule, client);
+            Application.runInBackground = true; // 允许后台运行
 
             client.OnConnected += () => {
                 Debug.Log("成功链接");
@@ -89,7 +90,6 @@ namespace Game_Client {
                 client.Tick(10); // 每帧处理一次
             }
             inputModule.Process(dt);
-
 
             gameContext.Tick(dt);
         }

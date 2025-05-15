@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Unity.VisualScripting;
+using Game_Client;
 
 namespace Protocoles {
     public static class MessageHelper {
 
         static Dictionary<Type, int> typeIDMap = new Dictionary<Type, int>() {
+            { typeof(SpawnRoleReqMessage), MessageConst.SpawnRole_Req },
+            { typeof(SpawnRoleResMessage), MessageConst.SpawnRole_Res },
+            { typeof(SpawnRoleBroMessage), MessageConst.SpawnRole_Bro }
         };
 
 

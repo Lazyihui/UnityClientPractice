@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Codice.Client.BaseCommands.Differences;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,10 @@ namespace Game_Client {
 
         public void Ctor() {
             movespeed = 5f;
+        }
+
+        public void SetPos(Vector3 pos){
+            this.transform.position = pos;
         }
 
         public void Move(Vector3 dir) {

@@ -5,6 +5,7 @@ using UnityEngine;
 using Telepathy;
 using UnityEditor.IMGUI.Controls;
 using Protocoles;
+using PlasticPipe.PlasticProtocol.Messages;
 
 
 namespace Game_Client {
@@ -40,8 +41,6 @@ namespace Game_Client {
             inputModule.Ctor();
 
 
-
-
             Action action = async () => {
                 await assetsModule.LoadAll();
 
@@ -63,7 +62,7 @@ namespace Game_Client {
             client.OnConnected += () => {
                 Debug.Log("成功链接");
                 // 1. 发送连接请求
-                
+
             };
             client.OnData += (message) => {
                 // 处理接收到的数据
@@ -72,15 +71,21 @@ namespace Game_Client {
                 int typeID = MessageHelper.ReadHeader(message.Array);
                 Debug.Log("消息类型ID: " + typeID);
 
+                // 广播
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
-                    RoleDomain.OnSpanwByBro(gameSys.Ctx, bro);
+                    RoleDomain.OnSpanw(gameSys.Ctx);
 
                 } else if (typeID == 1) {
 
-                } else {
-                    Debug.LogError("未知的消息类型: " + typeID);
+                }
+
+                // 发的单条信息
+                if (typeID == MessageConst.SpawnRole_Res) {
+                    Debug.Log("发给自己");
+                    RoleEntity owner = RoleDomain.OnSpanw(gameSys.Ctx);
+                    gameSys.Ctx.gameEntity.OwnerIDsig = owner.idSig;
                 }
 
             };

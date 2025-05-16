@@ -23,14 +23,15 @@ namespace Game_Client {
 
         public void Enter() {
             ctx.isRunning = true;
-
-            // 生成
-            RoleEntity role = RoleDomain.Spawn(ctx);
-            // 给Serverf发发送一条信息
+            // 1.发送信息由Server生成角色
             SpawnRoleReqMessage req = new SpawnRoleReqMessage();
-            req.idSig = role.idSig;
-            req.pos = role.transform.position;
-            Debug.Log(req.pos);
+            // 生成 
+            // RoleEntity role = RoleDomain.Spawn(ctx);
+            // // 给Serverf发发送一条信息
+            // SpawnRoleReqMessage req = new SpawnRoleReqMessage();
+            // req.idSig = role.idSig;
+            // req.pos = role.transform.position;
+            // Debug.Log(req.pos);
             byte[] data = MessageHelper.ToData(req);
             ctx.client.Send(data);
 
@@ -67,6 +68,12 @@ namespace Game_Client {
 
         public void PreTick(float dt) {
             // PreTick 
+            // int len = ctx.RoleRepository.TakeAll(out RoleEntity[] roles);
+            // for (int i = 0; i < len; i++) {
+            //     var role = roles[i];
+            //     RoleDomain.Input_Record(ctx, role);
+            // }
+
             RoleEntity owner = ctx.GetOwner();
             RoleDomain.Input_Record(ctx, owner);
         }

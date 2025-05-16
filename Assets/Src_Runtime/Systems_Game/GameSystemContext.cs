@@ -7,6 +7,7 @@ namespace Game_Client {
     public class GameSystemContext {
         public bool isRunning;
         public GameEntity gameEntity;
+        public IDServer iDServer;
 
 
         // Inject
@@ -21,11 +22,12 @@ namespace Game_Client {
         public GameSystemContext() {
             isRunning = false;
             gameEntity = new GameEntity();
+            iDServer = new IDServer();
 
             RoleRepository = new RoleRepository();
         }
 
-        public void Inject(AssetsModule assetsModule, InputModule inputModule,Client client) {
+        public void Inject(AssetsModule assetsModule, InputModule inputModule, Client client) {
             this.assetsModule = assetsModule;
             this.inputModule = inputModule;
             this.client = client;

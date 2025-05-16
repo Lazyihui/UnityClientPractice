@@ -24,9 +24,20 @@ namespace Game_Client {
         public void Enter() {
             ctx.isRunning = true;
 
-            RoleDomain.Spawn(ctx);
-            Debug.Log("GameSystem Enter");
+            // 生成
+            RoleEntity role = RoleDomain.Spawn(ctx);
+            // 给Serverf发发送一条信息
+            SpawnRoleReqMessage req = new SpawnRoleReqMessage();
+            req.idSig = role.idSig;
+            req.pos = role.transform.position;
+            Debug.Log(req.pos);
+            byte[] data = MessageHelper.ToData(req);
+            ctx.client.Send(data);
+
         }
+
+
+        // 临时写这里
 
         public void Tick(float dt) {
 
@@ -67,18 +78,13 @@ namespace Game_Client {
             RoleEntity owner = ctx.GetOwner();
             RoleDomain.Move(owner);
 
-
             // 
             if (Input.GetKeyDown(KeyCode.Space)) {
                 // 发送一条信息
-                SpawnRoleReqMessage req = new SpawnRoleReqMessage();
-                req.idSig = owner.idSig;
+                TestReqMessage req = new TestReqMessage();
                 req.pos = owner.transform.position;
-
                 Debug.Log(req.pos);
-
                 byte[] data = MessageHelper.ToData(req);
-                Debug.Assert(client != null, "Client is null");
                 client.Send(data);
             }
         }

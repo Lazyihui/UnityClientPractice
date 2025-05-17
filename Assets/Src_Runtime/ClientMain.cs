@@ -11,6 +11,9 @@ using PlasticPipe.PlasticProtocol.Messages;
 namespace Game_Client {
 
     public class ClientMain : MonoBehaviour {
+
+        [SerializeField] string roleName;
+
         Client client;
 
         public int port = 7777;
@@ -47,7 +50,7 @@ namespace Game_Client {
                 isInit = true;
 
                 // ---  Enter  ---
-                gameSys.Enter();
+                gameSys.Enter(roleName);
             };
             action.Invoke();
 
@@ -64,9 +67,9 @@ namespace Game_Client {
                 // 1. 发送连接请求
 
             };
+
             client.OnData += (message) => {
                 // 处理接收到的数据
-                Debug.Log("收到的信息: " + message);
 
                 int typeID = MessageHelper.ReadHeader(message.Array);
                 Debug.Log("消息类型ID: " + typeID);
@@ -75,17 +78,16 @@ namespace Game_Client {
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
-                    RoleDomain.OnSpanw(gameSys.Ctx);
+                    if (bro.roleName == roleName) {
+                        Debug.Log("生成主角"+bro.roleName);
+                        RoleEntity owner = RoleDomain.OnSpawn(gameSys.Ctx);
+                    } else {
+                        Debug.Log("生成配角");
+                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
+                    }
 
                 } else if (typeID == 1) {
 
-                }
-
-                // 发的单条信息
-                if (typeID == MessageConst.SpawnRole_Res) {
-                    Debug.Log("发给自己");
-                    RoleEntity owner = RoleDomain.OnSpanw(gameSys.Ctx);
-                    gameSys.Ctx.gameEntity.OwnerIDsig = owner.idSig;
                 }
 
             };
@@ -93,12 +95,6 @@ namespace Game_Client {
             client.OnDisconnected += () => {
                 Debug.Log("断开链接");
             };
-
-            // TODO:这里信息为什么没有发出去
-            // // 临时发一条消息
-            // string str = "Hello, Server!";
-            // byte[] data = System.Text.Encoding.UTF8.GetBytes(str);
-            // client.Send(data);
 
         }
 
@@ -132,11 +128,8 @@ namespace Game_Client {
             isTearDown = true;
             assetsModule.UnLoadAll();
 
-
-            if (client != null) {
-                client.Disconnect();
-                client = null;
-            }
+            client?.Disconnect();
+            client = null;
         }
     }
 }

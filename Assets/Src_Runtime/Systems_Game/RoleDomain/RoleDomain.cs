@@ -6,7 +6,7 @@ namespace Game_Client {
 
     public static class RoleDomain {
 
-        public static RoleEntity OnSpanw(GameSystemContext ctx) {
+        public static RoleEntity OnSpawn(GameSystemContext ctx) {
             RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
             ctx.RoleRepository.Add(role);
             return role;
@@ -14,7 +14,10 @@ namespace Game_Client {
 
         public static RoleEntity OnSpawnByBro(GameSystemContext ctx, SpawnRoleBroMessage bro) {
             RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
-            ctx.RoleRepository.Add(role);
+            role.idSig = bro.idSig;
+            role.roleName = bro.roleName;
+            // 临时来一个随机位置
+            role.SetPos(bro.pos);
             return role;
         }
 

@@ -11,10 +11,7 @@ namespace Game_Client {
             GameObject prefab = assetsModule.Entity_GetRole();
             GameObject go = GameObject.Instantiate(prefab);
             RoleEntity entity = go.GetComponent<RoleEntity>();
-            entity.idSig = new IDSignature(EntityType.Role, iDServer.PickRoleID());
-            // 临时来一个随机位置
-            Vector3 pos = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
-            entity.SetPos(pos);
+          
 
             entity.Ctor();
 

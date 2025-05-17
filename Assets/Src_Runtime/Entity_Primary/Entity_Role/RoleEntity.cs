@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Game_Client {
     public class RoleEntity : MonoBehaviour {
+
+        public string roleName;
+
         // 要发送的消息
         public IDSignature idSig;
         public Vector2 moveDir;
@@ -21,7 +24,7 @@ namespace Game_Client {
             movespeed = 5f;
         }
 
-        public void SetPos(Vector3 pos){
+        public void SetPos(Vector3 pos) {
             this.transform.position = pos;
         }
 

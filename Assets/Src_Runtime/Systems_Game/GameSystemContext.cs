@@ -9,6 +9,8 @@ namespace Game_Client {
         public GameEntity gameEntity;
         public IDServer iDServer;
 
+        public string roleName;
+
 
         // Inject
         public AssetsModule assetsModule;

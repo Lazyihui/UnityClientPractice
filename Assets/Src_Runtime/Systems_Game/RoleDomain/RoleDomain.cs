@@ -9,6 +9,7 @@ namespace Game_Client {
         public static RoleEntity OnSpawn(GameSystemContext ctx) {
             RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
             ctx.RoleRepository.Add(role);
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
             return role;
         }
 
@@ -18,6 +19,19 @@ namespace Game_Client {
             role.roleName = bro.roleName;
             // 临时来一个随机位置
             role.SetPos(bro.pos);
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
+
+            return role;
+        }
+
+        public static RoleEntity OnSpawnByRes(GameSystemContext ctx, SpawnRoleResMessage res) {
+            RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
+            role.idSig = res.idSig;
+            role.roleName = res.roleName;
+            // 临时来一个随机位置
+            role.SetPos(res.pos);
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
+
             return role;
         }
 

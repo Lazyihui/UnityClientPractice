@@ -72,24 +72,33 @@ namespace Game_Client {
                 // 处理接收到的数据
 
                 int typeID = MessageHelper.ReadHeader(message.Array);
-                Debug.Log("消息类型ID: " + typeID);
 
-                // 广播
+                // Bro
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
                     Debug.Log("生成配角");
                     RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
 
-                } else if (typeID == 1) {
+                } else if (typeID == MessageConst.Move_Bro) {
+
+                    MoveBroMessage bro = MessageHelper.ReadDate<MoveBroMessage>(message.Array);
+                    if (bro.roleName != roleName) {  // 其他玩家移动
+                        RoleDomain.OnMove(gameSys.Ctx, bro);
+                    } else {  // 本地玩家的服务端校验
+                        if (bro.timestamp > gameSys.Ctx.lastMoveTimestamp) {
+                            RoleDomain.OnMove(gameSys.Ctx, bro);
+                        }
+                    }
 
                 }
 
+                // Res
                 if (typeID == MessageConst.SpawnRole_Res) {
 
                     SpawnRoleResMessage res = MessageHelper.ReadDate<SpawnRoleResMessage>(message.Array);
-                    RoleDomain.OnSpawnByRes(gameSys.Ctx, res);
-
+                    RoleEntity owner = RoleDomain.OnSpawnByRes(gameSys.Ctx, res);
+                    gameSys.Ctx.gameEntity.OwnerIDsig = owner.idSig;
                 }
 
             };

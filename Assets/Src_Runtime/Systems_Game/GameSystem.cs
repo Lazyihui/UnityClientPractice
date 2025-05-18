@@ -31,7 +31,6 @@ namespace Game_Client {
             byte[] data = MessageHelper.ToData(req);
             ctx.client.Send(data);
 
-
         }
 
 
@@ -64,18 +63,15 @@ namespace Game_Client {
         }
 
         public void PreTick(float dt) {
-            // PreTick 
-            // int len = ctx.RoleRepository.TakeAll(out RoleEntity[] roles);
-            // for (int i = 0; i < len; i++) {
-            //     var role = roles[i];
-            //     RoleDomain.Input_Record(ctx, role);
-            // }
-
             RoleEntity owner = ctx.GetOwner();
             if (owner == null) {
+                Debug.Log("Ctx主角的Is" + Ctx.gameEntity.OwnerIDsig.GetType() + Ctx.gameEntity.OwnerIDsig.entityID);
+                Debug.Log("没有主角");
                 return;
             }
             RoleDomain.Input_Record(ctx, owner);
+
+            RoleDomain.Input_Apply(ctx, owner, dt);
         }
         public void LogicTick(float dt) {
             var client = ctx.client;
@@ -95,7 +91,7 @@ namespace Game_Client {
             if (owner == null) {
                 return;
             }
-            RoleDomain.Move(owner);
+            // RoleDomain.Move(owner);
 
 
         }

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Telepathy;
+using UnityEngine;
 
 
 namespace Game_Client {
@@ -10,6 +12,10 @@ namespace Game_Client {
         public IDServer iDServer;
 
         public string roleName;
+
+        public float lastMoveTimestamp;// 上次移动的时间戳
+        public Vector2 localPlayerPos; // 本地玩家位置
+        public Dictionary<string, RoleEntity> roleDict;
 
 
         // Inject
@@ -22,6 +28,9 @@ namespace Game_Client {
         public RoleRepository RoleRepository;
 
         public GameSystemContext() {
+            // 初始化
+            roleDict = new Dictionary<string, RoleEntity>();
+
             isRunning = false;
             gameEntity = new GameEntity();
             iDServer = new IDServer();
@@ -36,7 +45,12 @@ namespace Game_Client {
         }
 
         public RoleEntity GetOwner() {
-            RoleRepository.TryGet(gameEntity.OwnerIDsig, out RoleEntity role);
+            bool has = RoleRepository.TryGet(gameEntity.OwnerIDsig, out RoleEntity role);
+            // int len = RoleRepository.TakeAll(out RoleEntity[] roles);
+            // Debug.Log(len);
+            if (!has) {
+                Debug.Log("没找到");
+            }
             return role;
         }
     }

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
-using Unity.VisualScripting;
 using Game_Client;
 
 namespace Protocoles {
@@ -13,7 +11,10 @@ namespace Protocoles {
             { typeof(SpawnRoleReqMessage), MessageConst.SpawnRole_Req },
             { typeof(SpawnRoleResMessage), MessageConst.SpawnRole_Res },
             { typeof(SpawnRoleBroMessage), MessageConst.SpawnRole_Bro },
-            { typeof(TestReqMessage), MessageConst.Test_Req }
+            { typeof(TestReqMessage), MessageConst.Test_Req },
+            {typeof(MoveReqMessage), MessageConst.Move_Req },
+            {typeof(MoveResMessage), MessageConst.Move_res },
+            {typeof(MoveBroMessage),MessageConst.Move_Bro}
         };
 
 

@@ -6,7 +6,7 @@ namespace Game_Client {
         public int roleID;
 
         public IDServer() {
-            roleID = 1;
+            roleID = 0;
         }
 
         public int PickRoleID() {

@@ -28,6 +28,10 @@ namespace Game_Client {
             this.transform.position = pos;
         }
 
+        public Vector3 GetPos() {
+            return this.transform.position;
+        }
+
         public void Move(Vector3 dir) {
             dir.Normalize();
             var oldVelocity = rb.velocity;

@@ -10,27 +10,24 @@ namespace Game_Client {
             RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
             ctx.RoleRepository.Add(role);
             role.roleName = ctx.roleName;
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
             return role;
         }
 
         public static RoleEntity OnSpawnByBro(GameSystemContext ctx, SpawnRoleBroMessage bro) {
             RoleEntity role = GameFactory.Role_CreateResBro(ctx.assetsModule, ctx.iDServer);
-            role.idSig = bro.idSig;
             role.roleName = bro.roleName;
-            // 临时来一个随机位置
             role.SetPos(bro.pos);
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
 
             return role;
         }
 
         public static RoleEntity OnSpawnByRes(GameSystemContext ctx, SpawnRoleResMessage res) {
             RoleEntity role = GameFactory.Role_CreateResBro(ctx.assetsModule, ctx.iDServer);
-            role.idSig = res.idSig;
             role.roleName = res.roleName;
             role.SetPos(res.pos);
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}");
+            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
 
             return role;
         }

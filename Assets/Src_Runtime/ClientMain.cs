@@ -78,13 +78,8 @@ namespace Game_Client {
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
-                    if (bro.roleName == roleName) {
-                        Debug.Log("生成主角" + bro.roleName);
-                        RoleEntity owner = RoleDomain.OnSpawn(gameSys.Ctx);
-                    } else {
-                        Debug.Log("生成配角");
-                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
-                    }
+                    Debug.Log("生成配角");
+                    RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
 
                 } else if (typeID == 1) {
 

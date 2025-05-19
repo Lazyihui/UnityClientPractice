@@ -31,6 +31,8 @@ namespace Game_Client {
         public static AssetsModule assetsModule;
         public static InputModule inputModule;
 
+
+
         void Start() {
             // === System ===
             gameSys = GetComponentInChildren<GameSystem>();
@@ -65,7 +67,6 @@ namespace Game_Client {
             client.OnConnected += () => {
                 Debug.Log("成功链接");
                 // 1. 发送连接请求
-
             };
 
             client.OnData += (message) => {
@@ -84,10 +85,10 @@ namespace Game_Client {
 
                     MoveBroMessage bro = MessageHelper.ReadDate<MoveBroMessage>(message.Array);
                     if (bro.roleName != roleName) {  // 其他玩家移动
-                        RoleDomain.OnMove(gameSys.Ctx, bro);
+                        RoleDomain.OnMove(gameSys.Ctx, bro, gameSys.Ctx.GetOwner());
                     } else {  // 本地玩家的服务端校验
                         if (bro.timestamp > gameSys.Ctx.lastMoveTimestamp) {
-                            RoleDomain.OnMove(gameSys.Ctx, bro);
+                            RoleDomain.OnMove(gameSys.Ctx, bro, gameSys.Ctx.GetOwner());
                         }
                     }
 

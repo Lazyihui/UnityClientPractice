@@ -15,7 +15,6 @@ namespace Game_Client {
 
         public float lastMoveTimestamp;// 上次移动的时间戳
         public Vector2 localPlayerPos; // 本地玩家位置
-        public Dictionary<string, RoleEntity> roleDict;
 
 
         // Inject
@@ -28,8 +27,6 @@ namespace Game_Client {
         public RoleRepository RoleRepository;
 
         public GameSystemContext() {
-            // 初始化
-            roleDict = new Dictionary<string, RoleEntity>();
 
             isRunning = false;
             gameEntity = new GameEntity();

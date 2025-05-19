@@ -33,27 +33,20 @@ namespace Game_Client {
             return role;
         }
 
-        public static void OnMove(GameSystemContext ctx, MoveBroMessage bro) {
-            bool has = ctx.roleDict.TryGetValue(bro.roleName, out RoleEntity role);
+        public static void OnMove(GameSystemContext ctx, MoveBroMessage bro, RoleEntity Owner) {
 
-            if (has) {
-                role.SetPos(bro.targetPos);
+            Owner.SetPos(bro.targetPos);
 
-                if (bro.roleName == ctx.roleName) {
-                    ctx.localPlayerPos = bro.targetPos;
-                    ctx.lastMoveTimestamp = bro.timestamp;
-                }
-
+            if (bro.roleName == ctx.roleName) {
+                ctx.localPlayerPos = bro.targetPos;
+                ctx.lastMoveTimestamp = bro.timestamp;
             }
 
         }
 
-        public static void UpdateLocalPlayerPos(GameSystemContext ctx, Vector3 newPos) {
+        public static void UpdateLocalPlayerPos(GameSystemContext ctx, Vector3 newPos, RoleEntity Owner) {
             ctx.localPlayerPos = newPos;
-            bool has = ctx.roleDict.TryGetValue(ctx.roleName, out RoleEntity role);
-            if (has) {
-                role.SetPos(newPos);
-            }
+            Owner.SetPos(newPos);
         }
 
         #endregion
@@ -62,16 +55,16 @@ namespace Game_Client {
             role.moveDir = ctx.inputModule.MoveDir;
         }
 
-        public static void Input_Apply(GameSystemContext ctx, RoleEntity role, float dt) {
+        public static void Input_Apply(GameSystemContext ctx, RoleEntity Owner, float dt) {
             // 角色输入应用
+            Debug.Log($"RoleDomain.Input_Apply: {Owner.roleName} 移动方向: {Owner.moveDir}");
 
-
-            if (role.moveDir != Vector2.zero) {
-                Vector3 newPos = role.GetPos() + (Vector3)role.moveDir * role.movespeed * dt;
+            if (Owner.moveDir != Vector2.zero) {
+                Vector3 newPos = Owner.GetPos() + (Vector3)Owner.moveDir * Owner.movespeed * dt;
 
                 // 发送移动消息
                 MoveReqMessage req = new MoveReqMessage {
-                    roleName = role.roleName,
+                    roleName = Owner.roleName,
                     targetPos = newPos,
                     timestamp = DateTime.UtcNow.Ticks
                 };
@@ -81,7 +74,7 @@ namespace Game_Client {
 
                 // 本地预测（立即更新位置）
                 ctx.localPlayerPos = newPos;
-                RoleDomain.UpdateLocalPlayerPos(ctx, newPos);
+                RoleDomain.UpdateLocalPlayerPos(ctx, newPos, Owner);
             }
         }
 

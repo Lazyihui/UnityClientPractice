@@ -37,6 +37,17 @@ namespace Game_Client {
             return all.TryGetValue(idSig, out entity);
         }
 
+        public bool TryGetByString(string roleName, out RoleEntity entity) {
+            foreach (var kvp in all) {
+                if (kvp.Value.roleName == roleName) {
+                    entity = kvp.Value;
+                    return true;
+                }
+            }
+            entity = null;
+            return false;
+        }
+
 
         public void Clear() {
             all.Clear();

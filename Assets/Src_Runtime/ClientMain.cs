@@ -78,17 +78,19 @@ namespace Game_Client {
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
+
                     Debug.Log("生成配角");
                     RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
 
                 } else if (typeID == MessageConst.Move_Bro) {
 
                     MoveBroMessage bro = MessageHelper.ReadDate<MoveBroMessage>(message.Array);
+
                     if (bro.roleName != roleName) {  // 其他玩家移动
-                        RoleDomain.OnMove(gameSys.Ctx, bro, gameSys.Ctx.GetOwner());
+                        RoleDomain.OnMove(gameSys.Ctx, bro);
                     } else {  // 本地玩家的服务端校验
                         if (bro.timestamp > gameSys.Ctx.lastMoveTimestamp) {
-                            RoleDomain.OnMove(gameSys.Ctx, bro, gameSys.Ctx.GetOwner());
+                            RoleDomain.OnMove(gameSys.Ctx, bro);
                         }
                     }
 

@@ -66,7 +66,6 @@ namespace Game_Client {
             RoleEntity owner = ctx.GetOwner();
             if (owner == null) {
                 Debug.Log("Ctx主角的Is" + Ctx.gameEntity.OwnerIDsig.GetType() + Ctx.gameEntity.OwnerIDsig.entityID);
-                Debug.Log("没有主角");
                 return;
             }
             RoleDomain.Input_Record(ctx, owner);

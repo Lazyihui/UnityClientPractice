@@ -20,6 +20,7 @@ namespace Game_Client {
             role.roleName = bro.roleName;
             role.SetPos(bro.pos);
             Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
+            ctx.RoleRepository.Add(role);
 
             return role;
         }
@@ -33,10 +34,16 @@ namespace Game_Client {
             return role;
         }
 
-        public static void OnMove(GameSystemContext ctx, MoveBroMessage bro, RoleEntity Owner) {
+        public static void OnMove(GameSystemContext ctx, MoveBroMessage bro) {
 
-            Owner.SetPos(bro.targetPos);
+            ctx.RoleRepository.TryGetByString(bro.roleName, out RoleEntity Role);
 
+            if (Role == null) {
+                Debug.LogError($"RoleDomain.OnMove: 未找到角色 {bro.roleName}");
+                return;
+            }
+
+            Role.SetPos(bro.targetPos);
             if (bro.roleName == ctx.roleName) {
                 ctx.localPlayerPos = bro.targetPos;
                 ctx.lastMoveTimestamp = bro.timestamp;
@@ -44,9 +51,10 @@ namespace Game_Client {
 
         }
 
-        public static void UpdateLocalPlayerPos(GameSystemContext ctx, Vector3 newPos, RoleEntity Owner) {
+        public static void UpdateLocalPlayerPos(GameSystemContext ctx, Vector3 newPos, RoleEntity owner) {
+
             ctx.localPlayerPos = newPos;
-            Owner.SetPos(newPos);
+            owner.SetPos(newPos);
         }
 
         #endregion
@@ -57,7 +65,6 @@ namespace Game_Client {
 
         public static void Input_Apply(GameSystemContext ctx, RoleEntity Owner, float dt) {
             // 角色输入应用
-            Debug.Log($"RoleDomain.Input_Apply: {Owner.roleName} 移动方向: {Owner.moveDir}");
 
             if (Owner.moveDir != Vector2.zero) {
                 Vector3 newPos = Owner.GetPos() + (Vector3)Owner.moveDir * Owner.movespeed * dt;

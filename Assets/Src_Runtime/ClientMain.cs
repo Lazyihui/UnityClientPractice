@@ -80,7 +80,11 @@ namespace Game_Client {
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
 
                     Debug.Log("生成配角");
-                    RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
+                    if (bro.roleType == RoleType.Player) {
+                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
+                    } else if (bro.roleType == RoleType.Monster) {
+
+                    }
 
                 } else if (typeID == MessageConst.Move_Bro) {
 

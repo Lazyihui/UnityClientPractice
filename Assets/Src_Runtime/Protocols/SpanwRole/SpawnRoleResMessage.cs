@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Game_Client {
 
     public struct SpawnRoleResMessage {
+        public RoleType roleType;
+
         public string roleName;
         public IDSignature idSig;
 

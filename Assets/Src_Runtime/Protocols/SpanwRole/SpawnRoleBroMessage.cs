@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Game_Client {
 
     public struct SpawnRoleBroMessage {
+        public RoleType roleType;
 
         public string roleName;
 

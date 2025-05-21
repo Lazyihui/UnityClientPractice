@@ -65,7 +65,6 @@ namespace Game_Client {
         public void PreTick(float dt) {
             RoleEntity owner = ctx.GetOwner();
             if (owner == null) {
-                Debug.Log("Ctx主角的Is" + Ctx.gameEntity.OwnerIDsig.GetType() + Ctx.gameEntity.OwnerIDsig.entityID);
                 return;
             }
             RoleDomain.Input_Record(ctx, owner);

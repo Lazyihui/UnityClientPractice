@@ -5,8 +5,7 @@ using UnityEngine;
 using Telepathy;
 using UnityEditor.IMGUI.Controls;
 using Protocoles;
-using PlasticPipe.PlasticProtocol.Messages;
-
+using MyTelepathy;
 
 namespace Game_Client {
 
@@ -15,6 +14,7 @@ namespace Game_Client {
         [SerializeField] string roleName;
 
         Client client;
+        Program program;
 
         public int port = 7777;
         public int messageSize = 1024;
@@ -34,6 +34,10 @@ namespace Game_Client {
 
 
         void Start() {
+            program = new Program();
+
+            program.Start();
+
             // === System ===
             gameSys = GetComponentInChildren<GameSystem>();
             gameSys.Ctor();

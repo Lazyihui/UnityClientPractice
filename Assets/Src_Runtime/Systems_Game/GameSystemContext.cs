@@ -46,7 +46,6 @@ namespace Game_Client {
             // int len = RoleRepository.TakeAll(out RoleEntity[] roles);
             // Debug.Log(len);
             if (!has) {
-                Debug.Log("没找到");
             }
             return role;
         }

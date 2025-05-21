@@ -1,6 +1,6 @@
 using System;
-using Protocoles;
 using UnityEngine;
+using MyTelepathy;
 
 namespace Game_Client {
 

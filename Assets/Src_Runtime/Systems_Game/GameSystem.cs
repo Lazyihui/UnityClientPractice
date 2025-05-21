@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Protocoles;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using Telepathy;
-using PlasticPipe.PlasticProtocol.Messages;
+using MyTelepathy;
 
 namespace Game_Client {
 

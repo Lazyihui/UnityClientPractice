@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace Game_Client {
     public class RoleEntity : MonoBehaviour {
-
+        
+        public RoleType roleType;
         public string roleName;
 
         // 要发送的消息

@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Telepathy;
-using UnityEditor.IMGUI.Controls;
 using MyTelepathy;
 
 namespace Game_Client {
@@ -78,11 +75,10 @@ namespace Game_Client {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
 
-                    Debug.Log("生成配角");
                     if (bro.roleType == RoleType.Player) {
                         RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
                     } else if (bro.roleType == RoleType.Monster) {
-
+                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
                     }
 
                 } else if (typeID == MessageConst.Move_Bro) {

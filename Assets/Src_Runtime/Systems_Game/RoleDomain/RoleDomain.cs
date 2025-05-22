@@ -19,6 +19,7 @@ namespace Game_Client {
             RoleEntity role = GameFactory.Role_CreateResBro(ctx.assetsModule, ctx.iDServer);
             role.roleName = bro.roleName;
             role.SetPos(bro.pos);
+            role.roleType = bro.roleType;
             Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
             ctx.RoleRepository.Add(role);
 
@@ -29,6 +30,7 @@ namespace Game_Client {
             RoleEntity role = GameFactory.Role_CreateResBro(ctx.assetsModule, ctx.iDServer);
             role.roleName = res.roleName;
             role.SetPos(res.pos);
+            role.roleType = res.roleType;
             Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
             ctx.RoleRepository.Add(role);
             return role;

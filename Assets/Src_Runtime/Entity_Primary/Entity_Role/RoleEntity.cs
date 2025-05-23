@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game_Client {
     public class RoleEntity : MonoBehaviour {
-        
+
         public RoleType roleType;
         public string roleName;
 
@@ -21,6 +21,7 @@ namespace Game_Client {
         public float movespeed;
 
         [SerializeField] Transform bulletRoot;
+        public Transform BulletRoot => bulletRoot;
 
         public void Ctor() {
             movespeed = 5f;

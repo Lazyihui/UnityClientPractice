@@ -25,7 +25,7 @@ namespace Game_Client {
 
         // Repos
         public RoleRepository RoleRepository;
-
+        public BulletRepository BulletRepository;
         public GameSystemContext() {
 
             isRunning = false;
@@ -33,6 +33,7 @@ namespace Game_Client {
             iDServer = new IDServer();
 
             RoleRepository = new RoleRepository();
+            BulletRepository = new BulletRepository();
         }
 
         public void Inject(AssetsModule assetsModule, InputModule inputModule, Client client) {

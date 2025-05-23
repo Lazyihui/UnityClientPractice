@@ -67,7 +67,12 @@ namespace Game_Client {
         }
         public void LogicTick(float dt) {
             var client = ctx.client;
-            // 
+
+            RoleEntity owner = ctx.GetOwner();
+            if (owner == null) {
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.Space)) {
                 // 发送一条信息
                 // TestReqMessage req = new TestReqMessage();
@@ -76,17 +81,12 @@ namespace Game_Client {
                 // byte[] data = MessageHelper.ToData(req);
                 // client.Send(data);
                 // 发送一条信息
-
-                
+                SpawnBulletReqMessage req = new SpawnBulletReqMessage();
+                req.rootPos = owner.BulletRoot;
+                byte[] data = MessageHelper.ToData(req);
+                client.Send(data);
+                Debug.Log("发送一条生成子弹的信息");
             }
-            // LogicTick
-
-            RoleEntity owner = ctx.GetOwner();
-            if (owner == null) {
-                return;
-            }
-            // RoleDomain.Move(owner);
-
 
         }
 

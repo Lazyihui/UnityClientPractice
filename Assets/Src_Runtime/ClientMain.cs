@@ -93,6 +93,10 @@ namespace Game_Client {
                         }
                     }
 
+                } else if (typeID == MessageConst.SpawnBullet_Bro) {
+
+                    SpawnBulletBroMessage bro = MessageHelper.ReadDate<SpawnBulletBroMessage>(message.Array);
+                    BulletDomain.OnSpawnByBro(gameSys.Ctx, bro);
                 }
 
                 // Res

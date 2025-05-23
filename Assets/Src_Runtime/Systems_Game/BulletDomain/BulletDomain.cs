@@ -1,19 +1,18 @@
 using System;
 using UnityEngine;
+using MyTelepathy;
 
 namespace Game_Client {
 
     public static class BulletDomain {
 
-        public static BulletEntity SpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro, Vector3 rootPos) {
-            var entity = GameFactory.Bullet_CreateResBro(ctx.assetsModule, ctx.iDServer);
+        public static BulletEntity OnSpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro) {
+            var entity = GameFactory.Bullet_CreateResBro(ctx.assetsModule, ctx.iDServer, bro.rootPos);
             // entity.idSig = bro.idSig;
             entity.Ctor();
-            entity.SetPos(rootPos);
+            ctx.BulletRepository.Add(entity);
 
-            // 设置位置 还没想好要怎么样设置
-
-            return null;
+            return entity;
         }
     }
 }

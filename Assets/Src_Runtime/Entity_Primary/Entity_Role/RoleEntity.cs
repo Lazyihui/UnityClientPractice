@@ -18,8 +18,9 @@ namespace Game_Client {
         [SerializeField] Rigidbody2D rb;
         public int id;
         public int typeID;
-
         public float movespeed;
+
+        [SerializeField] Transform bulletRoot;
 
         public void Ctor() {
             movespeed = 5f;

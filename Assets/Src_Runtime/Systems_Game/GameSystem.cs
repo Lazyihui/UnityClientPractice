@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using Telepathy;
 using MyTelepathy;
@@ -31,9 +29,6 @@ namespace Game_Client {
             ctx.client.Send(data);
 
         }
-
-
-        // 临时写这里
 
         public void Tick(float dt) {
 
@@ -81,6 +76,8 @@ namespace Game_Client {
                 // byte[] data = MessageHelper.ToData(req);
                 // client.Send(data);
                 // 发送一条信息
+
+                
             }
             // LogicTick
 

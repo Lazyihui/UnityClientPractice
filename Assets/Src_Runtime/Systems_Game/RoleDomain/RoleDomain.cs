@@ -6,14 +6,6 @@ namespace Game_Client {
 
     public static partial class RoleDomain {
 
-        public static RoleEntity OnSpawn(GameSystemContext ctx) {
-            RoleEntity role = GameFactory.Role_Create(ctx.assetsModule, ctx.iDServer);
-            ctx.RoleRepository.Add(role);
-            role.roleName = ctx.roleName;
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
-            return role;
-        }
-       
         public static void Input_Record(GameSystemContext ctx, RoleEntity role) {
             // (后面加入) InputComponent
             role.moveDir = ctx.inputModule.MoveDir;

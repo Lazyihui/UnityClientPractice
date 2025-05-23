@@ -75,14 +75,10 @@ namespace Game_Client {
 
             if (Input.GetKeyDown(KeyCode.Space)) {
                 // 发送一条信息
-                // TestReqMessage req = new TestReqMessage();
-                // req.pos = owner.transform.position;
-                // Debug.Log(req.pos);
-                // byte[] data = MessageHelper.ToData(req);
-                // client.Send(data);
-                // 发送一条信息
                 SpawnBulletReqMessage req = new SpawnBulletReqMessage();
                 req.rootPos = owner.BulletRoot;
+                req.belongName = owner.roleName;
+                req.dir = Vector3.up;
                 byte[] data = MessageHelper.ToData(req);
                 client.Send(data);
                 Debug.Log("发送一条生成子弹的信息");

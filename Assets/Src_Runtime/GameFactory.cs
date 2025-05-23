@@ -23,7 +23,8 @@ namespace Game_Client {
             GameObject prefab = assetsModule.Entity_GetBullet();
             GameObject go = GameObject.Instantiate(prefab, rootPos);
             BulletEntity entity = go.GetComponent<BulletEntity>();
-            entity.idSig = new IDSignature(EntityType.Bullet, iDServer.PickBulletID());
+            entity.idSig = new IDSignature(EntityType.Bullet, 0);
+            Debug.Log(entity.idSig.entityID);
 
             entity.Ctor();
 

@@ -14,5 +14,33 @@ namespace Game_Client {
 
             return entity;
         }
+
+        public static void UnSpawnByBro(GameSystemContext ctx, IDSignature iDSignature) {
+            ctx.BulletRepository.TryGet(iDSignature, out var entity);
+            entity.TearDown();
+            ctx.BulletRepository.Remove(entity);
+        }
+
+        public static void OnMove(GameSystemContext ctx, BulletMoveBroMessage bro) {
+            // 1. 查找对应的子弹实体
+            IDSignature iDSignature = new IDSignature(EntityType.Bullet, bro.bulletID);
+            bool has = ctx.BulletRepository.TryGet(iDSignature, out BulletEntity bullet);
+            Debug.Log(bro.bulletID);
+
+            if (!has) {
+                Debug.LogWarning($"找不到子弹实体: {bro.bulletID}");
+                return;
+            }
+
+            // 2. 更新子弹位置
+            bullet.SetPos(bro.position);
+
+            // // 3. 更新子弹的视觉表现
+            // if (ctx.bulletViewDict.TryGetValue(bro.bulletID, out BulletView view)) {
+            //     view.transform.position = bro.position;
+            // } else {
+            //     Debug.LogWarning($"找不到子弹视图: {bro.bulletID}");
+            // }
+        }
     }
 }

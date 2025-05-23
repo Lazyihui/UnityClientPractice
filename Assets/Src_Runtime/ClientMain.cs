@@ -93,10 +93,19 @@ namespace Game_Client {
                         }
                     }
 
-                } else if (typeID == MessageConst.SpawnBullet_Bro) {
+                } else if (typeID == MessageConst.BulletSpawn_Bro) {
 
                     SpawnBulletBroMessage bro = MessageHelper.ReadDate<SpawnBulletBroMessage>(message.Array);
                     BulletDomain.OnSpawnByBro(gameSys.Ctx, bro);
+                } else if (typeID == MessageConst.BulletDestory_Bro) {
+                    var bro = MessageHelper.ReadDate<BulletMoveBroMessage>(message.Array);
+                    BulletDomain.OnMove(gameSys.Ctx, bro);
+
+                } else if (typeID == MessageConst.BulletDestory_Bro) {
+                    var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
+
+                    IDSignature idsig = new IDSignature(EntityType.Bullet, bro.bulletID);
+                    BulletDomain.UnSpawnByBro(gameSys.Ctx, idsig);
                 }
 
                 // Res

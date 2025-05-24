@@ -6,7 +6,6 @@ using MyTelepathy;
 namespace Game_Client {
 
     public class ClientMain : MonoBehaviour {
-
         [SerializeField] string roleName;
 
         Client client;
@@ -104,8 +103,7 @@ namespace Game_Client {
                 } else if (typeID == MessageConst.BulletDestory_Bro) {
                     var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
 
-                    IDSignature idsig = new IDSignature(EntityType.Bullet, bro.bulletID);
-                    BulletDomain.UnSpawnByBro(gameSys.Ctx, idsig);
+                    BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
                 }
 
                 // Res

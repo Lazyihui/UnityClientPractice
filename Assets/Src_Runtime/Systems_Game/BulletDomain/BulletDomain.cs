@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using MyTelepathy;
 
+
 namespace Game_Client {
 
     public static class BulletDomain {
@@ -22,13 +23,12 @@ namespace Game_Client {
         }
 
         public static void OnMove(GameSystemContext ctx, BulletMoveBroMessage bro) {
+
             // 1. 查找对应的子弹实体
-            IDSignature iDSignature = new IDSignature(EntityType.Bullet, bro.bulletID);
-            bool has = ctx.BulletRepository.TryGet(iDSignature, out BulletEntity bullet);
-            Debug.Log(bro.bulletID);
+            bool has = ctx.BulletRepository.TryGet(bro.iDSignature, out BulletEntity bullet);
 
             if (!has) {
-                Debug.LogWarning($"找不到子弹实体: {bro.bulletID}");
+                Debug.LogWarning($"找不到子弹实体: {bro}");
                 return;
             }
 

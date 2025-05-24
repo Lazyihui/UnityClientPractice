@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Codice.Client.BaseCommands.Differences;
 using Unity.VisualScripting;
 using UnityEngine;
+using MyTelepathy;
+
 
 namespace Game_Client {
     public class RoleEntity : MonoBehaviour {

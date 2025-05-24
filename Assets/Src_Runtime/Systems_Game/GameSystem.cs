@@ -65,6 +65,7 @@ namespace Game_Client {
 
             RoleDomain.Input_Apply(ctx, owner, dt);
         }
+        
         public void LogicTick(float dt) {
             var client = ctx.client;
 

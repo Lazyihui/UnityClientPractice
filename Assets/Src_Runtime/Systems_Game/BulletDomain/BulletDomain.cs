@@ -9,7 +9,8 @@ namespace Game_Client {
 
         public static BulletEntity OnSpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro) {
             var entity = GameFactory.Bullet_CreateResBro(ctx.assetsModule, ctx.iDServer, bro.rootPos);
-            // entity.idSig = bro.idSig;
+            entity.idSig = bro.idSig;
+            entity.SetPos(bro.rootPos.position);
             entity.Ctor();
             ctx.BulletRepository.Add(entity);
 
@@ -23,7 +24,6 @@ namespace Game_Client {
         }
 
         public static void OnMove(GameSystemContext ctx, BulletMoveBroMessage bro) {
-
             // 1. 查找对应的子弹实体
             bool has = ctx.BulletRepository.TryGet(bro.iDSignature, out BulletEntity bullet);
 

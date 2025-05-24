@@ -21,10 +21,8 @@ namespace Game_Client {
         public static GameSystem gameSys;
 
         // === Module ===
-
         public static AssetsModule assetsModule;
         public static InputModule inputModule;
-
 
 
         void Start() {
@@ -43,7 +41,6 @@ namespace Game_Client {
 
             Action action = async () => {
                 await assetsModule.LoadAll();
-
                 isInit = true;
 
                 // ---  Enter  ---
@@ -95,16 +92,18 @@ namespace Game_Client {
                 } else if (typeID == MessageConst.BulletSpawn_Bro) {
 
                     SpawnBulletBroMessage bro = MessageHelper.ReadDate<SpawnBulletBroMessage>(message.Array);
+
                     BulletDomain.OnSpawnByBro(gameSys.Ctx, bro);
-                } else if (typeID == MessageConst.BulletDestory_Bro) {
-                    var bro = MessageHelper.ReadDate<BulletMoveBroMessage>(message.Array);
+                } else if (typeID == MessageConst.BulletMove_Bro) {
+                    BulletMoveBroMessage bro = MessageHelper.ReadDate<BulletMoveBroMessage>(message.Array);
+
                     BulletDomain.OnMove(gameSys.Ctx, bro);
-
-                } else if (typeID == MessageConst.BulletDestory_Bro) {
-                    var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
-
-                    BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
                 }
+                //  else if (typeID == MessageConst.BulletDestory_Bro) {
+                //     var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
+
+                //     BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
+                // }
 
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {

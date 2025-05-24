@@ -90,10 +90,11 @@ namespace Game_Client {
                     }
 
                 } else if (typeID == MessageConst.BulletSpawn_Bro) {
-
+                    var owner = gameSys.Ctx.GetOwner();
+                    var rootPos = owner.BulletRoot;
                     SpawnBulletBroMessage bro = MessageHelper.ReadDate<SpawnBulletBroMessage>(message.Array);
 
-                    BulletDomain.OnSpawnByBro(gameSys.Ctx, bro);
+                    BulletDomain.OnSpawnByBro(gameSys.Ctx, bro, rootPos);
                 } else if (typeID == MessageConst.BulletMove_Bro) {
                     BulletMoveBroMessage bro = MessageHelper.ReadDate<BulletMoveBroMessage>(message.Array);
 

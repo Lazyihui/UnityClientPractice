@@ -7,10 +7,11 @@ namespace Game_Client {
 
     public static class BulletDomain {
 
-        public static BulletEntity OnSpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro) {
+        public static BulletEntity OnSpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro, Transform rootPos) {
             var entity = GameFactory.Bullet_CreateResBro(ctx.assetsModule, ctx.iDServer, bro.rootPos);
             entity.idSig = bro.idSig;
-            entity.SetPos(bro.rootPos.position);
+            Debug.Log($"子弹生成: {rootPos.position}");
+            entity.SetPos(rootPos.position);
             entity.Ctor();
             ctx.BulletRepository.Add(entity);
 
@@ -31,7 +32,6 @@ namespace Game_Client {
                 Debug.LogWarning($"找不到子弹实体: {bro}");
                 return;
             }
-
             // 2. 更新子弹位置
             bullet.SetPos(bro.position);
 

@@ -79,7 +79,7 @@ namespace Game_Client {
                 SpawnBulletReqMessage req = new SpawnBulletReqMessage();
                 req.rootPos = owner.BulletRoot;
                 req.belongName = owner.roleName;
-                
+
                 Debug.Log("发送一条生成子弹的信息" + owner.BulletRoot.position);
                 req.pos = owner.BulletRoot.position;
                 req.dir = Vector3.up;

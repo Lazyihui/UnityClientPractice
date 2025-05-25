@@ -73,6 +73,11 @@ namespace Game_Client {
             return bullet;
         }
 
+        public GameObject Entity_GetStuff() {
+            entities.TryGetValue("Entity_Stuff", out GameObject stuff);
+            return stuff;
+        }
+
         //  ---  Panel  ---
         public GameObject Panel_GetLogin() {
             panels.TryGetValue("Panel_Login", out GameObject panel);

@@ -29,5 +29,16 @@ namespace Game_Client {
             return entity;
 
         }
+
+        public static StuffEntity Stuff_CreateResBro(AssetsModule assetsModule, IDServer iDServer) {
+            Debug.Assert(assetsModule != null, "assetsModule is null");
+            GameObject prefab = assetsModule.Entity_GetStuff();
+            GameObject go = GameObject.Instantiate(prefab);
+            StuffEntity entity = go.GetComponent<StuffEntity>();
+
+            entity.Ctor();
+
+            return entity;
+        }
     }
 }

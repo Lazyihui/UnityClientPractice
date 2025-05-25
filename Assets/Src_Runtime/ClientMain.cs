@@ -105,6 +105,10 @@ namespace Game_Client {
 
                 //     BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
                 // }
+                else if (typeID == MessageConst.StuffSpawn_Bro) {
+                    StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
+                    StuffDomain.SpawnStuffByBro(gameSys.Ctx, bro);
+                }
 
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {

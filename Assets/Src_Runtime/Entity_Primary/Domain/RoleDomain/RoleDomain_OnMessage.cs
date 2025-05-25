@@ -43,12 +43,6 @@ namespace Game_Client {
 
         }
 
-        public static void UpdateLocalPlayerPos(GameSystemContext ctx, Vector3 newPos, RoleEntity owner) {
-
-            ctx.localPlayerPos = newPos;
-            owner.SetPos(newPos);
-        }
-
 
     }
 }

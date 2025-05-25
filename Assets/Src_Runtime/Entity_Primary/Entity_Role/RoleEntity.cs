@@ -26,7 +26,7 @@ namespace Game_Client {
         public Transform BulletRoot => bulletRoot;
 
         public void Ctor() {
-            movespeed = 5f;
+            movespeed = 18f;
         }
 
         public void SetPos(Vector3 pos) {

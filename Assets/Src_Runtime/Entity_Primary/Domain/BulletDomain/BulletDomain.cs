@@ -25,7 +25,7 @@ namespace Game_Client {
 
         public static void OnMove(GameSystemContext ctx, BulletMoveBroMessage bro) {
             // 1. 查找对应的子弹实体
-            bool has = ctx.BulletRepository.TryGet(bro.iDSignature, out BulletEntity bullet);
+            bool has = ctx.BulletRepository.TryGet(bro.idSig, out BulletEntity bullet);
 
             if (!has) {
                 Debug.LogWarning($"找不到子弹实体: {bro}");
@@ -34,12 +34,6 @@ namespace Game_Client {
             // 2. 更新子弹位置
             bullet.SetPos(bro.position);
 
-            // // 3. 更新子弹的视觉表现
-            // if (ctx.bulletViewDict.TryGetValue(bro.bulletID, out BulletView view)) {
-            //     view.transform.position = bro.position;
-            // } else {
-            //     Debug.LogWarning($"找不到子弹视图: {bro.bulletID}");
-            // }
         }
     }
 }

@@ -103,7 +103,7 @@ namespace Game_Client {
 
                     var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
                     BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
-                    
+
                 } else if (typeID == MessageConst.StuffSpawn_Bro) {
                     StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
                     StuffDomain.SpawnStuffByBro(gameSys.Ctx, bro);

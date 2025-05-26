@@ -7,7 +7,7 @@ namespace Game_Client {
     public class StuffEntity : MonoBehaviour {
         [SerializeField] Rigidbody2D rb;
 
-        public IDSignature idSig;
+        public int idSig;
 
 
         public void Ctor() {

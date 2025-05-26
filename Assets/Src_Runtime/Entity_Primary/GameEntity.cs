@@ -8,7 +8,7 @@ namespace Game_Client {
         public float restFixTime;
 
         // 记录角色
-        public IDSignature OwnerIDsig;
+        public int OwnerIDsig;
         
     }
 }

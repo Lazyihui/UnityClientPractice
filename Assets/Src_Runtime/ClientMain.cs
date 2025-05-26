@@ -104,7 +104,7 @@ namespace Game_Client {
                 } else if (typeID == MessageConst.BulletDestory_Bro) {
 
                     var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
-                    BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
+                    BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.idSig);
 
                 } else if (typeID == MessageConst.StuffSpawn_Bro) {
                     StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
@@ -114,8 +114,7 @@ namespace Game_Client {
                     StuffDomain.OnMove(gameSys.Ctx, bro);
                 } else if (typeID == MessageConst.StuffDestory_Bro) {
                     var bro = MessageHelper.ReadDate<StuffDestoryBroMessage>(message.Array);
-                    Debug.Log($"收到物体销毁广播: {bro.iDSignature.entityID}");
-                    StuffDomain.UnSpawnStuffByBro(gameSys.Ctx, bro.iDSignature);
+                    StuffDomain.UnSpawnStuffByBro(gameSys.Ctx, bro.idSig);
                 }
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {

@@ -5,12 +5,12 @@ namespace Game_Client {
 
     public class StuffRepository {
 
-        Dictionary<IDSignature, StuffEntity> all;
+        Dictionary<int, StuffEntity> all;
 
         StuffEntity[] temArray;
 
         public StuffRepository() {
-            all = new Dictionary<IDSignature, StuffEntity>();
+            all = new Dictionary<int, StuffEntity>();
             temArray = new StuffEntity[100];
         }
 
@@ -31,7 +31,7 @@ namespace Game_Client {
             return all.Count;
         }
 
-        public bool TryGet(IDSignature idSig, out StuffEntity entity) {
+        public bool TryGet(int idSig, out StuffEntity entity) {
             return all.TryGetValue(idSig, out entity);
         }
 

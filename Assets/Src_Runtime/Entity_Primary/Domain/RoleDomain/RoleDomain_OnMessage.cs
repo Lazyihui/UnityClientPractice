@@ -11,7 +11,7 @@ namespace Game_Client {
             role.SetPos(bro.pos);
             role.roleType = bro.roleType;
             Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
-            ctx.RoleRepository.Add(role);
+            ctx.roleRepository.Add(role);
 
             return role;
         }
@@ -22,13 +22,13 @@ namespace Game_Client {
             role.SetPos(res.pos);
             role.roleType = res.roleType;
             Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
-            ctx.RoleRepository.Add(role);
+            ctx.roleRepository.Add(role);
             return role;
         }
 
         public static void OnMove(GameSystemContext ctx, MoveBroMessage bro) {
 
-            ctx.RoleRepository.TryGetByString(bro.roleName, out RoleEntity Role);
+            ctx.roleRepository.TryGetByString(bro.roleName, out RoleEntity Role);
 
             if (Role == null) {
                 Debug.LogError($"RoleDomain.OnMove: 未找到角色 {bro.roleName}");

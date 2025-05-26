@@ -80,12 +80,10 @@ namespace Game_Client {
                 req.rootPos = owner.BulletRoot;
                 req.belongName = owner.roleName;
 
-                Debug.Log("发送一条生成子弹的信息" + owner.BulletRoot.position);
                 req.pos = owner.BulletRoot.position;
                 req.dir = Vector3.up;
                 byte[] data = MessageHelper.ToData(req);
                 client.Send(data);
-                Debug.Log("发送一条生成子弹的信息");
             }
 
         }

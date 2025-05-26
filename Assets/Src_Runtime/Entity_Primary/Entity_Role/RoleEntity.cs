@@ -13,7 +13,7 @@ namespace Game_Client {
         public string roleName;
 
         // 要发送的消息
-        public IDSignature idSig;
+        public int idSig;
         public Vector2 moveDir;
 
 

@@ -5,14 +5,19 @@ using MyTelepathy;
 namespace Game_Client {
 
     public class BulletEntity : MonoBehaviour {
-        public IDSignature idSig;
-
+        
+        public int idSig;
+        
         public void Ctor() {
 
         }
 
         public void SetPos(Vector3 pos) {
             transform.position = pos;
+        }
+
+        public Vector3 GetPos() {
+            return transform.position;
         }
 
         public void TearDown() {

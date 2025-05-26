@@ -25,18 +25,18 @@ namespace Game_Client {
         public Client client;
 
         // Repos
-        public RoleRepository RoleRepository;
-        public BulletRepository BulletRepository;
-        public StuffRepository StuffRepository;
+        public RoleRepository roleRepository;
+        public BulletRepository bulletRepository;
+        public StuffRepository stuffRepository;
         public GameSystemContext() {
 
             isRunning = false;
             gameEntity = new GameEntity();
             iDServer = new IDServer();
 
-            RoleRepository = new RoleRepository();
-            BulletRepository = new BulletRepository();
-            StuffRepository = new StuffRepository();
+            roleRepository = new RoleRepository();
+            bulletRepository = new BulletRepository();
+            stuffRepository = new StuffRepository();
         }
 
         public void Inject(AssetsModule assetsModule, InputModule inputModule, Client client) {
@@ -46,7 +46,7 @@ namespace Game_Client {
         }
 
         public RoleEntity GetOwner() {
-            bool has = RoleRepository.TryGet(gameEntity.OwnerIDsig, out RoleEntity role);
+            bool has = roleRepository.TryGet(gameEntity.OwnerIDsig, out RoleEntity role);
             // int len = RoleRepository.TakeAll(out RoleEntity[] roles);
             // Debug.Log(len);
             if (!has) {

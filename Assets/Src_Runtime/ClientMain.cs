@@ -118,6 +118,7 @@ namespace Game_Client {
 
                     var bro = MessageHelper.ReadDate<StuffDestoryBroMessage>(message.Array);
                     StuffDomain.UnSpawnStuffByBro(gameSys.Ctx, bro.idSig);
+                    Debug.Log($"物体销毁: {bro.idSig}");
                 }
 
 

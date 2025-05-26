@@ -110,15 +110,20 @@ namespace Game_Client {
                     StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
                     StuffDomain.SpawnStuffByBro(gameSys.Ctx, bro);
                 } else if (typeID == MessageConst.StuffMove_Bro) {
+
                     var bro = MessageHelper.ReadDate<StuffMoveBroMessage>(message.Array);
                     StuffDomain.OnMove(gameSys.Ctx, bro);
+
                 } else if (typeID == MessageConst.StuffDestory_Bro) {
+
                     var bro = MessageHelper.ReadDate<StuffDestoryBroMessage>(message.Array);
                     StuffDomain.UnSpawnStuffByBro(gameSys.Ctx, bro.idSig);
                 }
+
+
+
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {
-
                     SpawnRoleResMessage res = MessageHelper.ReadDate<SpawnRoleResMessage>(message.Array);
                     RoleEntity owner = RoleDomain.OnSpawnByRes(gameSys.Ctx, res);
                     gameSys.Ctx.gameEntity.OwnerIDsig = owner.idSig;

@@ -16,10 +16,10 @@ namespace Game_Client {
             return entity;
         }
 
-        public static void UnSpawnStuffByBro(GameSystemContext ctx, int iDSignature) {
-            bool has = ctx.stuffRepository.TryGet(iDSignature, out StuffEntity entity);
+        public static void UnSpawnStuffByBro(GameSystemContext ctx, int id) {
+            bool has = ctx.stuffRepository.TryGet(id, out StuffEntity entity);
             if (!has) {
-                Debug.LogWarning($"找不到物体实体: {iDSignature}");
+                Debug.LogWarning($"找不到物体实体: {id}");
                 return;
             }
 

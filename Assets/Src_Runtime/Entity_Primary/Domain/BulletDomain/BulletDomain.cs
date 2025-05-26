@@ -17,9 +17,8 @@ namespace Game_Client {
             return entity;
         }
 
-        public static void UnSpawnByBro(GameSystemContext ctx, int iDSignature) {
-
-            ctx.bulletRepository.TryGet(iDSignature, out var entity);
+        public static void UnSpawnByBro(GameSystemContext ctx, int id) {
+            ctx.bulletRepository.TryGet(id, out var entity);
             entity.TearDown();
             ctx.bulletRepository.Remove(entity);
         }

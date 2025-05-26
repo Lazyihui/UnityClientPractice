@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1680892448145889370}
   - component: {fileID: 8199633288328861750}
-  - component: {fileID: 3873184273208591353}
   - component: {fileID: 8380820696842223698}
   m_Layer: 0
   m_Name: Entity_Stuff
@@ -86,33 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3873184273208591353
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7813746695933011561}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0.5
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &8380820696842223698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310d434b4eb3208438497e4205129abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 3873184273208591353}
+  rb: {fileID: 0}
   idSig:
     value: 0
     entityType: 0

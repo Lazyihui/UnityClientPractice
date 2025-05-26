@@ -19,6 +19,11 @@ namespace Game_Client {
             transform.position = pos;
         }
 
+        public Vector3 GetPos() {
+            // 1.获取物体位置
+            return transform.position;
+        }
+
         public void TearDown() {
             // 1.销毁物体
             Destroy(gameObject);

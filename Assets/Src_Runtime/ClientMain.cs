@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using Telepathy;
 using MyTelepathy;
+using JetBrains.Annotations;
+using System.Linq.Expressions;
 
 namespace Game_Client {
 
@@ -107,8 +109,14 @@ namespace Game_Client {
                 } else if (typeID == MessageConst.StuffSpawn_Bro) {
                     StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
                     StuffDomain.SpawnStuffByBro(gameSys.Ctx, bro);
+                } else if (typeID == MessageConst.StuffMove_Bro) {
+                    var bro = MessageHelper.ReadDate<StuffMoveBroMessage>(message.Array);
+                    StuffDomain.OnMove(gameSys.Ctx, bro);
+                } else if (typeID == MessageConst.StuffDestory_Bro) {
+                    var bro = MessageHelper.ReadDate<StuffDestoryBroMessage>(message.Array);
+                    Debug.Log($"收到物体销毁广播: {bro.iDSignature.entityID}");
+                    StuffDomain.UnSpawnStuffByBro(gameSys.Ctx, bro.iDSignature);
                 }
-
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {
 

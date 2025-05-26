@@ -10,7 +10,6 @@ namespace Game_Client {
         public static BulletEntity OnSpawnByBro(GameSystemContext ctx, SpawnBulletBroMessage bro, Transform rootPos) {
             var entity = GameFactory.Bullet_CreateResBro(ctx.assetsModule, ctx.iDServer, bro.rootPos);
             entity.idSig = bro.idSig;
-            Debug.Log($"子弹生成: {rootPos.position}");
             entity.SetPos(rootPos.position);
             entity.Ctor();
             ctx.BulletRepository.Add(entity);

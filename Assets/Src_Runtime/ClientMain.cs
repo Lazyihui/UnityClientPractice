@@ -99,13 +99,12 @@ namespace Game_Client {
                     BulletMoveBroMessage bro = MessageHelper.ReadDate<BulletMoveBroMessage>(message.Array);
 
                     BulletDomain.OnMove(gameSys.Ctx, bro);
-                }
-                //  else if (typeID == MessageConst.BulletDestory_Bro) {
-                //     var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
+                } else if (typeID == MessageConst.BulletDestory_Bro) {
 
-                //     BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
-                // }
-                else if (typeID == MessageConst.StuffSpawn_Bro) {
+                    var bro = MessageHelper.ReadDate<BulletDestoryBroMessage>(message.Array);
+                    BulletDomain.UnSpawnByBro(gameSys.Ctx, bro.iDSignature);
+                    
+                } else if (typeID == MessageConst.StuffSpawn_Bro) {
                     StuffSpawnBroMessage bro = MessageHelper.ReadDate<StuffSpawnBroMessage>(message.Array);
                     StuffDomain.SpawnStuffByBro(gameSys.Ctx, bro);
                 }

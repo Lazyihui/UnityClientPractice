@@ -12,9 +12,10 @@ namespace Game_Client {
 
         Client client;
 
-        public int port = 5366;
+        int port = 5366;
         public int messageSize = 1024;
-        string ip = "120.27.13.194"; // 服务器IP地址
+        // string ip = "127.0.0.1"; // 服务器IP地址
+        string ip ="120.27.13.194";
 
         bool isTearDown = false;
         bool isInit = false;
@@ -28,7 +29,6 @@ namespace Game_Client {
 
 
         void Start() {
-            Debug.Log("客户端开始运行...");
             // === System ===
             gameSys = GetComponentInChildren<GameSystem>();
             gameSys.Ctor();
@@ -140,7 +140,7 @@ namespace Game_Client {
 
         void Update() {
             Application.targetFrameRate = 30; // 设置帧率
-            
+
             if (!isInit) {
                 return;
             }

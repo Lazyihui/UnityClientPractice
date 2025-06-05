@@ -14,8 +14,8 @@ namespace Game_Client {
 
         int port = 5366;
         public int messageSize = 1024;
-        // string ip = "127.0.0.1"; // 服务器IP地址
-        string ip ="120.27.13.194";
+        string ip = "127.0.0.1"; // 服务器IP地址
+        // string ip ="120.27.13.194";
 
         bool isTearDown = false;
         bool isInit = false;

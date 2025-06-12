@@ -22,7 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Entity
-    - Panel
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41cab900e63f6f14baf073050b0cb822
     m_Address: Entity_Bullet
@@ -35,6 +34,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Entity
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24a85b24fb985cc4aa2f38a08c5b20ed
+    m_Address: Assets/Res_Runtime/Panel/Panel_Login.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Panel
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 9c749d167c04a504b806bd0ab72810b0, type: 2}

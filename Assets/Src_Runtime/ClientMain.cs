@@ -9,29 +9,39 @@ namespace Game_Client {
 
     public class ClientMain : MonoBehaviour {
         [SerializeField] string roleName;
+        [SerializeField] Canvas canvas;
 
         Client client;
 
-        public int port = 7777;
-        public int messageSize = 1024;
+        int port = 7777;
+        int messageSize = 1024;
         string ip = "127.0.0.1"; // 服务器IP地址
 
         bool isTearDown = false;
         bool isInit = false;
 
+        bool isCanConnect = false;
+        public EventCenter eventCenter;
+
         // === System ===
         public static GameSystem gameSys;
 
+        public static AppUI appUI;
         // === Module ===
         public static AssetsModule assetsModule;
         public static InputModule inputModule;
 
 
+
         void Start() {
+            eventCenter = new EventCenter();
 
             // === System ===
             gameSys = GetComponentInChildren<GameSystem>();
             gameSys.Ctor();
+
+            appUI = GetComponentInChildren<AppUI>();
+            appUI.Ctor();
 
             // === Module ===
             assetsModule = GetComponentInChildren<AssetsModule>();
@@ -41,12 +51,15 @@ namespace Game_Client {
             inputModule.Ctor();
 
 
+
+
             Action action = async () => {
                 await assetsModule.LoadAll();
                 isInit = true;
 
                 // ---  Enter  ---
-                gameSys.Enter(roleName);
+                appUI.Panel_Login_Open();
+                // gameSys.Enter(roleName);
             };
             action.Invoke();
 
@@ -56,7 +69,10 @@ namespace Game_Client {
             client.Connect(ip, port);
             // === Inject ===
             gameSys.Inject(assetsModule, inputModule, client);
+            appUI.Inject(assetsModule, canvas);
             Application.runInBackground = true; // 允许后台运行
+
+            Banding();
 
             client.OnConnected += () => {
                 Debug.Log("成功链接");
@@ -135,6 +151,19 @@ namespace Game_Client {
                 Debug.Log("断开链接");
             };
 
+
+        }
+
+        void Banding() {
+            var uievent = appUI.uIEvent;
+
+            uievent.OnLoginClickHandle += () => {
+                isCanConnect = true;
+                Debug.Log("登录按钮被点击");
+
+                appUI.Panel_Login_Close();
+                gameSys.Enter(roleName);
+            };
         }
 
         void Update() {

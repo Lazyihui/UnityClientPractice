@@ -24,5 +24,9 @@ namespace Game_Client {
 
         }
 
+        public void Show() {
+            gameObject.SetActive(true);
+        }
+
     }
 }

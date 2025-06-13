@@ -10,10 +10,17 @@ namespace Game_Client {
             role.roleName = bro.roleName;
             role.SetPos(bro.pos);
             role.roleType = bro.roleType;
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
+            Debug.Log($"RoleDomain.OnSpawn: {role.id} {role.roleName}" + "位置" + role.GetPos());
             ctx.roleRepository.Add(role);
 
             return role;
+        }
+
+        public static void OnDestory(GameSystemContext ctx, RoleEntity entity) {
+            // 1.销毁角色
+            entity.TearDown();
+            ctx.roleRepository.Remove(entity);
+
         }
 
         public static RoleEntity OnSpawnByRes(GameSystemContext ctx, SpawnRoleResMessage res) {
@@ -21,9 +28,20 @@ namespace Game_Client {
             role.roleName = res.roleName;
             role.SetPos(res.pos);
             role.roleType = res.roleType;
-            Debug.Log($"RoleDomain.OnSpawn: {role.idSig} {role.roleName}" + "位置" + role.GetPos());
+            Debug.Log($"RoleDomain.OnSpawn: {role.id} {role.roleName}" + "位置" + role.GetPos());
             ctx.roleRepository.Add(role);
             return role;
+        }
+
+        public static void UnSpawnByBro(GameSystemContext ctx, int idSig) {
+
+            if (!ctx.roleRepository.TryGet(idSig, out RoleEntity role)) {
+                Debug.LogWarning($"RoleDomain.UnSpawnByBro: 找不到角色实体 {idSig}");
+                return;
+            }
+
+            // 1.销毁角色
+            OnDestory(ctx, role);
         }
 
         public static void OnMove(GameSystemContext ctx, MoveBroMessage bro) {

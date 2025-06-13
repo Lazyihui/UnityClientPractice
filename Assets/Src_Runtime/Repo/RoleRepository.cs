@@ -15,11 +15,11 @@ namespace Game_Client {
         }
 
         public void Add(RoleEntity entity) {
-            all.Add(entity.idSig, entity);
+            all.Add(entity.id, entity);
         }
 
         public void Remove(RoleEntity entity) {
-            all.Remove(entity.idSig);
+            all.Remove(entity.id);
         }
 
         public int TakeAll(out RoleEntity[] array) {

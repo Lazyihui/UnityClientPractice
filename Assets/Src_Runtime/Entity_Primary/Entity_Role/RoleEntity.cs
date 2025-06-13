@@ -13,13 +13,11 @@ namespace Game_Client {
         public string roleName;
 
         // 要发送的消息
-        public int idSig;
+        public int id;
         public Vector2 moveDir;
 
 
         [SerializeField] Rigidbody2D rb;
-        public int id;
-        public int typeID;
         public float movespeed;
 
         [SerializeField] Transform bulletRoot;
@@ -43,6 +41,11 @@ namespace Game_Client {
             oldVelocity.x = dir.x * movespeed;
             oldVelocity.y = dir.y * movespeed;
             rb.velocity = oldVelocity;
+        }
+
+        public void TearDown() {
+            // 销毁角色
+            Destroy(gameObject);
         }
 
     }

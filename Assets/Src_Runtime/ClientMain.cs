@@ -4,6 +4,7 @@ using Telepathy;
 using MyTelepathy;
 using JetBrains.Annotations;
 using System.Linq.Expressions;
+using UnityEditor.VersionControl;
 
 namespace Game_Client {
 
@@ -87,11 +88,18 @@ namespace Game_Client {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
 
+
                     if (bro.roleType == RoleType.Player) {
                         RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
                     } else if (bro.roleType == RoleType.Monster) {
                         RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
                     }
+
+                } else if (typeID == MessageConst.RoleDestory_Bro) {
+                    Debug.Log("销毁角色 Bro" + roleName);
+
+                    RoleDestoryBroMessage bro = MessageHelper.ReadDate<RoleDestoryBroMessage>(message.Array);
+                    RoleDomain.UnSpawnByBro(gameSys.Ctx, bro.idSig);
 
                 } else if (typeID == MessageConst.Move_Bro) {
 
@@ -135,12 +143,11 @@ namespace Game_Client {
                 }
 
 
-
                 // Res
                 if (typeID == MessageConst.SpawnRole_Res) {
                     SpawnRoleResMessage res = MessageHelper.ReadDate<SpawnRoleResMessage>(message.Array);
                     RoleEntity owner = RoleDomain.OnSpawnByRes(gameSys.Ctx, res);
-                    gameSys.Ctx.gameEntity.OwnerIDsig = owner.idSig;
+                    gameSys.Ctx.gameEntity.OwnerIDsig = owner.id;
                 }
 
             };
@@ -157,10 +164,9 @@ namespace Game_Client {
 
             uievent.OnLoginClickHandle += () => {
                 Debug.Log("登录按钮被点击");
-
                 // 登入游戏的时候才链接
                 client.Connect(ip, port);
-
+                Debug.Log($"连接到服务器: {ip}:{port}");
                 appUI.Panel_Login_Close();
                 gameSys.Enter(roleName);
             };

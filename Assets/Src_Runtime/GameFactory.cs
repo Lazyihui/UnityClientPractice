@@ -12,7 +12,7 @@ namespace Game_Client {
             GameObject prefab = assetsModule.Entity_GetRole();
             GameObject go = GameObject.Instantiate(prefab);
             RoleEntity entity = go.GetComponent<RoleEntity>();
-            entity.idSig = iDServer.PickRoleID();
+            entity.id = iDServer.PickRoleID();
 
             entity.Ctor();
 

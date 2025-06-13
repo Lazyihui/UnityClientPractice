@@ -20,7 +20,6 @@ namespace Game_Client {
         bool isTearDown = false;
         bool isInit = false;
 
-        bool isCanConnect = false;
         public EventCenter eventCenter;
 
         // === System ===
@@ -66,7 +65,6 @@ namespace Game_Client {
             // 
 
             client = new Client(messageSize);
-            client.Connect(ip, port);
             // === Inject ===
             gameSys.Inject(assetsModule, inputModule, client);
             appUI.Inject(assetsModule, canvas);
@@ -158,8 +156,10 @@ namespace Game_Client {
             var uievent = appUI.uIEvent;
 
             uievent.OnLoginClickHandle += () => {
-                isCanConnect = true;
                 Debug.Log("登录按钮被点击");
+
+                // 登入游戏的时候才链接
+                client.Connect(ip, port);
 
                 appUI.Panel_Login_Close();
                 gameSys.Enter(roleName);

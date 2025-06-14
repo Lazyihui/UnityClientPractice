@@ -74,6 +74,7 @@ namespace Game_Client {
             Banding();
 
             client.OnConnected += () => {
+                gameSys.Enter(roleName);
                 Debug.Log("成功链接");
                 // 1. 发送连接请求
             };
@@ -87,13 +88,8 @@ namespace Game_Client {
                 if (typeID == MessageConst.SpawnRole_Bro) {
 
                     SpawnRoleBroMessage bro = MessageHelper.ReadDate<SpawnRoleBroMessage>(message.Array);
-
-
-                    if (bro.roleType == RoleType.Player) {
-                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
-                    } else if (bro.roleType == RoleType.Monster) {
-                        RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
-                    }
+                    Debug.Log("生成角色 Bro" + bro.roleName);
+                    RoleDomain.OnSpawnByBro(gameSys.Ctx, bro);
 
                 } else if (typeID == MessageConst.RoleDestory_Bro) {
                     Debug.Log("销毁角色 Bro" + roleName);
@@ -168,7 +164,6 @@ namespace Game_Client {
                 client.Connect(ip, port);
                 Debug.Log($"连接到服务器: {ip}:{port}");
                 appUI.Panel_Login_Close();
-                gameSys.Enter(roleName);
             };
         }
 

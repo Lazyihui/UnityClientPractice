@@ -11,9 +11,7 @@ namespace Game_Client {
     public class ClientMain : MonoBehaviour {
         [SerializeField] string roleName;
         [SerializeField] Canvas canvas;
-
         Client client;
-
         int port = 7777;
         int messageSize = 1024;
         string ip = "127.0.0.1"; // 服务器IP地址

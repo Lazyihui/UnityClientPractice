@@ -28,7 +28,25 @@ namespace Game_Client {
         public RoleRepository roleRepository;
         public BulletRepository bulletRepository;
         public StuffRepository stuffRepository;
+
+        // 临时这样写
+        public List<byte[]> pool;
+
+        public void AddToPool(byte[] data) {
+
+            if (pool.Count > 0) {
+                data = pool[0];
+                pool.RemoveAt(0);
+            } else {
+                data = new byte[1024]; // 假设每个数据包大小为1024字节
+            }
+            // 发送
+            pool.Add(data);
+        }
+
         public GameSystemContext() {
+
+            pool = new List<byte[]>();
 
             isRunning = false;
             gameEntity = new GameEntity();
